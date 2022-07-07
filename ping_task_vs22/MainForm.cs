@@ -25,7 +25,7 @@ namespace ping_task_vs22
         // https://docs.microsoft.com/en-us/dotnet/api/system.net.networkinformation.ping?view=net-6.0
         void execPing()
         {
-            Task.Run(() =>
+            Task.Run(async() =>
             {
                 while (!DisposePing.IsCancellationRequested)
                 {
@@ -46,9 +46,10 @@ namespace ping_task_vs22
                             && (uri.Scheme == Uri.UriSchemeHttp ||
                             uri.Scheme == Uri.UriSchemeHttps))
                         {
-                            PingReply reply = pingSender.Send(
+                            PingReply reply = await pingSender.SendPingAsync(
                                 uri.Host,
-                                timeout, buffer,
+                                timeout, 
+                                buffer,
                                 pingOptions);
                             switch (reply.Status)
                             {
@@ -78,10 +79,10 @@ namespace ping_task_vs22
                             Invoke(() => labelStatus.Text = ex.InnerException.Message);
                         }
                     }
-                // Since the timeout is so large, it wouldn't make sense for it to be on 
-                // a 1-second timer. What we DO want to do is wait for the Ping to complete
-                // synchronously and then wait a second brfore starting the next one.
-                    Task.Delay(1000).Wait();
+                    // Since the timeout is so large, it wouldn't make sense for it to be on 
+                    // a 1-second timer. What we DO want to do is wait for the Ping to complete
+                    // synchronously and then wait a second brfore starting the next one.
+                    await Task.Delay(1000);
                 }
             });
         }
