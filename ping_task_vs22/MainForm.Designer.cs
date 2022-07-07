@@ -38,7 +38,7 @@
             this.textBoxUri.Name = "textBoxUri";
             this.textBoxUri.Size = new System.Drawing.Size(355, 31);
             this.textBoxUri.TabIndex = 0;
-            this.textBoxUri.Text = "http://www.ivsoftware.com";
+            this.textBoxUri.Text = "https://www.google.com";
             // 
             // labelStatus
             // 
