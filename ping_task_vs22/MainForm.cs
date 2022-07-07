@@ -132,7 +132,7 @@ namespace ping_task_vs22
 
                 while (!DisposePing.IsCancellationRequested)
                 {
-                    // But what if there were a concurrent task? To avoid
+                    // BUT what if there were a concurrent task? To avoid
                     // deadlock we may want to await the signalled state async.
                     await _semaphore.WaitAsync();
                     try 
@@ -157,7 +157,7 @@ namespace ping_task_vs22
                     // Since the timeout is so large, it wouldn't make sense for it to be on 
                     // a 1-second timer. What we DO want to do is wait for the Ping to complete
                     // synchronously and then wait a second before starting the next one.
-                    await Task.Delay(2500);
+                    await Task.Delay(5000);
                 }
             });
         }
