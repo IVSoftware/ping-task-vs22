@@ -9,6 +9,10 @@ namespace ping_task_vs22
         public MainForm()
         {
             InitializeComponent();
+            textBoxUri.KeyDown += (sender, e) =>
+            {
+                if (e.KeyData == Keys.Return) e.SuppressKeyPress = true;
+            };
         }
         protected override void OnHandleCreated(EventArgs e)
         {
