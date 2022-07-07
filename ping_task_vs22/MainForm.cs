@@ -26,7 +26,13 @@ namespace ping_task_vs22
         void execPing()
         {
             Task.Run(async() =>
-            {
+            {   //   ^^^^^
+                // The thing is, this loop is already running in a background task so
+                // we're not really holding anything up. There may be little-to-no value
+                // in using await and making async calls inside the loop. But if you really
+                // must do that for some reason, adding the 'async' lets you do that.
+                // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
                 while (!DisposePing.IsCancellationRequested)
                 {
                     var pingSender = new Ping();
