@@ -9,7 +9,12 @@ namespace ping_task_vs22
         public MainForm()
         {
             InitializeComponent();
+            textBoxUri.KeyDown += (sender, e) =>
+            {
+                if (e.KeyData == Keys.Return) e.SuppressKeyPress = true;
+            };
         }
+
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -78,12 +83,12 @@ namespace ping_task_vs22
                             Invoke(() => labelStatus.Text = ex.InnerException.Message);
                         }
                     }
-                // Since the timeout is so large, it wouldn't make sense for it to be on 
-                // a 1-second timer. What we DO want to do is wait for the Ping to complete
-                // synchronously and then wait a second brfore starting the next one.
+                    // Since the timeout is so large, it wouldn't make sense for it to be on 
+                    // a 1-second timer. What we DO want to do is wait for the Ping to complete
+                    // synchronously and then wait a second brfore starting the next one.
                     Task.Delay(1000).Wait();
                 }
-            });
+            }, DisposePing.Token);
         }
 
     private void onPingSuccess()
